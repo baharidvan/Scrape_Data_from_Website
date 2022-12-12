@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using SanctionScannerCaseStudy;
+using System.Collections.Generic;
 
 namespace ConsoleApp
 {
@@ -31,45 +32,17 @@ namespace ConsoleApp
                 homeProducts.Add(homeProduct);
 
                 //counter++;
-                //if (counter == 5)
+                //if (counter == 10)
                 //    break;
             }
-
-            PrintToTxt(homeProducts);
-
-            #region MyRegion
-
-            //HtmlDocument document = new HtmlDocument();
-            //document.Load(@"C:\Users\Samsman\Desktop\Sahibinden.html");
-
-            //var nodes = document.DocumentNode.SelectNodes("//*[@id=\"container\"]/div[3]/div/div[3]/div[3]/ul/li/a");
-            //List<string> links = new List<string>();
-            //foreach (var node in nodes)
-            //{
-            //    var link = node.Attributes["href"].Value;
-            //    links.Add(link);
-            //    Console.WriteLine(link);
-            //}
-
-            //HtmlDocument document2 = new HtmlDocument();
-            //document2.Load(@"C:\Users\Samsman\Desktop\araba.html");
-            //var fiyat = document2.DocumentNode.SelectSingleNode("//*[@id=\"classifiedDetail\"]/div/div[2]/div[2]/h3/text()").InnerText;
-            //Console.WriteLine(fiyat);
-
-            //HtmlDocument document3 = new HtmlDocument();
-            //document3.Load(@"C:\Users\Samsman\Desktop\araba2.html");
-            //var fiyat3 = document3.DocumentNode.SelectSingleNode("//*[@id=\"classifiedDetail\"]/div/div[2]/div[2]/h3/text()").InnerText;
-            //string temp = new String(fiyat3.Where(Char.IsDigit).ToArray());
-            //int fiyat4 = Int32.Parse(temp);
-            //Console.WriteLine(fiyat4);
-
-            #endregion
+            Print(homeProducts);
+            Console.WriteLine("\nAverage of the prices: " + homeProducts.Average(item => item.Price)); // Display the average of price
         }
 
         public static int GetPrice(string url)
         {
             HtmlDocument doc = GetDocument(url);
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(3000); 
             string fiyatString = doc.DocumentNode.SelectSingleNode("//*[@class=\"classifiedInfo \"]/h3/text()")?.InnerText;
 
             int price;
@@ -77,13 +50,13 @@ namespace ConsoleApp
                 price = 0;
             else
             {
-                string onlyDigits = new String(fiyatString.Where(Char.IsDigit).ToArray());
-                price = Int32.Parse(onlyDigits);
+                string onlyDigits = new String(fiyatString.Where(Char.IsDigit).ToArray()); // Filter only digit characters
+                price = Int32.Parse(onlyDigits); // Converting price to integer
             }
             
             return price;
         }
-        public static void PrintToTxt(List<HomeProduct> list)
+        public static void Print(List<HomeProduct> list)
         {
             StreamWriter writer = new StreamWriter("data.txt");
 
@@ -94,8 +67,12 @@ namespace ConsoleApp
             foreach (var product in list)
             {
                 writer.Write(product.Title.PadRight(100)); //write the column of the row with a fixed width of 100 characters
+                Console.Write(product.Title.PadRight(100));
                 writer.Write(product.Price);  //write the column of price  
+                Console.Write(product.Price);  
                 writer.WriteLine(); //newline to move to the next row
+                Console.WriteLine();
+
             }
             writer.Close();
         }
