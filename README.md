@@ -1,14 +1,14 @@
 # Scrape Data from Website
 ## Project Summary and How to Solve
 
-In this project, it is desired to develop a C# console application that extracting data from a website ("sahibinden.com"). 
+In this project, it is desired to develop a C# console application that extracting data from a website. 
 
 
 ## Steps of Developing Application
 
 ## ●Extracting the Data
 ● First of all we need to take data from the website succesfully. To do that, it is planned to use Html Agility Pack which is Html Parser written in C#. The package is added to the console application.<br />
-● Using only Html Agility pack couldnt be sufficient to extract the data from "sahibinden.com". Response Html data is not suitable for parsing due to permission issues. Than Selenium package is also added. It is a package that automates browsers. To extract the data from the website, we didn't send request the address of the website directly, First open the website with new Google Chrome application using Selenium and get the document from there and load with Html Agility pack. <br />
+● Using only Html Agility pack couldnt be sufficient to extract the data from website. Response Html data is not suitable for parsing due to permission issues. Than Selenium package is also added. It is a package that automates browsers. To extract the data from the website, we didn't send request the address of the website directly, First open the website with new Google Chrome application using Selenium and get the document from there and load with Html Agility pack. <br />
 ● Also it is also sleeping commands and proxy edits for not take possible ip bans.<br />
 
 ## ●Parsing the Data
